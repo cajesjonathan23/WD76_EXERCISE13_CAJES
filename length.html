@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" /><title>Length Converter</title>
+    <style>
+        body {
+            font-family: "Bebas Neue", sans-serif;
+        } 
+        .design {
+            border: none;
+            border-bottom: rgb(32, 156, 69) solid 2px;
+            font-size: 19px;
+            border-radius: 10px;
+        }
+       
+        .form-control{
+            font-size: 30px;
+        }
+        .card{
+            background-color: #2B2A4C;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center my-5">
+            <div class="col-md-5">
+                <div class="card py-5 px-5">
+                    <a href="index.html" class="text-white" style="font-size: 24px;"><i class="fa-solid fa-arrow-left"></i></a>
+                    <h1 class="text-center text-white">LENGTH CONVERTER</h1>
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="form-group w-100">
+                            
+                            <h4 for="unit" class="text-white">Select Base Unit of Measurement:</h4>
+                            <select class="design w-100 p-2" name="unit" id="unit" onchange="updateConversionDropdown()">
+                                <option value="mm">Millimeters</option>
+                                <option value="cm">Centimeters</option>
+                                <option value="m">Meters</option>
+                                <option value="km">Kilometers</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <div class="form-group w-100">
+                            <h4 for="unit" class="text-white">Enter the value:</h4>
+                            <input type="number" class="form-control" id="inputValue" oninput="updateConversionDropdown()" />
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <div class="form-group w-100">
+                            <h4 for="unit" class="text-white">Choose Conversion Unit:</h4>
+                            <select class="design w-100 p-2" name="conversionUnit" id="conversionUnit">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <div class="form-group w-100">
+                            <input type="text" class="form-control" id="outputResult" readonly><br>
+                            <button type="button" class="btn btn-primary w-100 " onclick="performConversion()">Convert</button>
+                            <button type="button" class="btn btn-danger w-100 mt-2" onclick="clearInputs()">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateConversionDropdown() {
+            const selectedUnit = document.getElementById("unit").value;
+            const inputValue = parseFloat(document.getElementById("inputValue").value);
+            const conversionUnitSelect = document.getElementById("conversionUnit");
+
+            // Clear the conversion dropdown options
+            conversionUnitSelect.innerHTML = "";
+
+            if (!isNaN(inputValue)) {
+                // Add valid conversion options based on the selected unit
+                if (selectedUnit !== "mm") {
+                    const mmOption = document.createElement("option");
+                    mmOption.value = "mm";
+                    mmOption.text = "Millimeters";
+                    conversionUnitSelect.add(mmOption);
+                }
+
+                if (selectedUnit !== "cm") {
+                    const cmOption = document.createElement("option");
+                    cmOption.value = "cm";
+                    cmOption.text = "Centimeters";
+                    conversionUnitSelect.add(cmOption);
+                }
+
+                if (selectedUnit !== "m") {
+                    const mOption = document.createElement("option");
+                    mOption.value = "m";
+                    mOption.text = "Meters";
+                    conversionUnitSelect.add(mOption);
+                }
+
+                if (selectedUnit !== "km") {
+                    const kmOption = document.createElement("option");
+                    kmOption.value = "km";
+                    kmOption.text = "Kilometers";
+                    conversionUnitSelect.add(kmOption);
+                }
+            }
+        }
+
+        function performConversion() {
+            const selectedUnit = document.getElementById("unit").value;
+            const inputValue = parseFloat(document.getElementById("inputValue").value);
+            const conversionUnit = document.getElementById("conversionUnit").value;
+
+            if (!isNaN(inputValue)) {
+                let result;
+
+                switch (selectedUnit) {
+                    case "mm":
+                        if (conversionUnit === "cm") result = inputValue / 10;
+                        else if (conversionUnit === "m") result = inputValue / 1000;
+                        else if (conversionUnit === "km") result = inputValue / 1000000;
+                        else result = inputValue; // Millimeters to Millimeters
+                        break;
+                    case "cm":
+                        if (conversionUnit === "mm") result = inputValue * 10;
+                        else if (conversionUnit === "m") result = inputValue / 100;
+                        else if (conversionUnit === "km") result = inputValue / 100000;
+                        else result = inputValue; // Centimeters to Centimeters
+                        break;
+                    case "m":
+                        if (conversionUnit === "mm") result = inputValue * 1000;
+                        else if (conversionUnit === "cm") result = inputValue * 100;
+                        else if (conversionUnit === "km") result = inputValue / 1000;
+                        else result = inputValue; // Meters to Meters
+                        break;
+                    case "km":
+                        if (conversionUnit === "mm") result = inputValue * 1000000;
+                        else if (conversionUnit === "cm") result = inputValue * 100000;
+                        else if (conversionUnit === "m") result = inputValue * 1000;
+                        else result = inputValue; // Kilometers to Kilometers
+                        break;
+                    default:
+                        result = "";
+                        break;
+                }
+
+                if (result !== "") {
+                    document.getElementById("outputResult").value = `${result} ${conversionUnit}`;
+                } else {
+                    document.getElementById("outputResult").value = "Invalid conversion";
+                }
+            } else {
+                document.getElementById("outputResult").value = "Please enter a valid number.";
+            }
+        }
+
+        function clearInputs() {
+            document.getElementById("inputValue").value = "";
+            document.getElementById("outputResult").value = "";
+            updateConversionDropdown();
+        }
+    </script>
+</body>
+</html>

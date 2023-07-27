@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Unit Converters</title>
+    <style>
+        body {
+            font-family: "Bebas Neue", sans-serif;
+        }
+     
+        .design {
+            border: none;
+            border-bottom: rgb(32, 156, 69) solid 2px;
+            font-size: 19px;
+            border-radius: 10px;
+        }
+       
+        .form-control{
+            font-size: 30px;
+        }
+        .card{
+            background-color: #2B2A4C;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"><br><br>
+        <div class="row justify-content-center my-5">
+            <div class="col-md-5">
+                <div class="card py-5 px-5">
+                    <h1 class="text-center text-white">UNIT CONVERTER</h1>
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="form-group w-100">
+                            <h4 for="unit" class="text-white">Select Conversion Type:</h4>
+                            <select class="design w-100 p-2" name="conversionType" id="conversionType" onchange="redirectOnChange()">
+                                <option value="">Choose Conversion Type</option>
+                                <option value="length">Length</option>
+                                <option value="mass">Mass</option>
+                                <option value="volume">Volume</option>
+                            </select>
+                        </div>
+                    </div>
+                   ]
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+         function redirectOnChange() {
+            const conversionType = document.getElementById("conversionType").value;
+            if (conversionType === "length") {
+                window.location.href = "length.html";
+            }
+            else if (conversionType === "mass") {
+                window.location.href = "mass.html";
+            }
+            else if (conversionType === "volume") {
+                window.location.href = "volume.html";
+            }
+            
+        }
+    </script>
+</body>
+</html>
